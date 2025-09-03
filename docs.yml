@@ -38,11 +38,30 @@ paths:
                     type: array
                     items:
                       $ref: "#/components/schemas/PhoneModel"
-                    examples:
-                      Phones:
-                        $ref: "#/components/examples/PhonesEx" 
     post:
       summary: Should create a list of objects
+      requestBody:
+        content: 
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/PhoneModel'
+      responses:
+        "201":
+          description: Should create phones
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Phones created
+
+          
+
+
 components:
   examples:
     PhonesEx:
@@ -84,7 +103,9 @@ components:
   parameters:
     Identifier:
       name: id
+      required: true
       in: path
-      type: string
-      example: 001 
+      schema:
+        type: string
+        example: 001 
 
