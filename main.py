@@ -40,7 +40,7 @@ def serialize_phones(phones: list[PhoneModel]):
 def get_phones():
     return Response(
         content={
-            "data": serialize_phones(stored_phones)
+            "data": stored_phones
         }, status_code=200, media_type="application/json"
     )
 
@@ -80,6 +80,3 @@ def put_charac_phone(id: str, charac: Characteristic):
             status_code=200,
             media_type="application/json"
         )
-
-
-

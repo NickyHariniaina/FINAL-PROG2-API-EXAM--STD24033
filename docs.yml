@@ -1,0 +1,90 @@
+openapi: 3.0.0
+info:
+  title: STD24033
+  description: This is a specification of STD24033
+  version: 1.0.0
+  contact:
+    name: NickyHariniaina
+    email: nickyharini1na@gmail.com
+
+servers:
+  - url: http://localhost:8000
+    description: LocalHost URL
+
+paths:
+  /health:
+    get:
+      summary: Return Ok
+      responses:
+        '200':
+          description: Should return a plain text Ok
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: Ok
+  /phones:
+    get:  
+      summary: Get a list of phones
+      responses:
+        '200':
+          description: Should return a list of phones
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/PhoneModel"
+                    examples:
+                      Phones:
+                        $ref: "#/components/examples/PhonesEx" 
+    post:
+      summary: Should create a list of objects
+components:
+  examples:
+    PhonesEx:
+      value: 
+        - identifier: 001
+          brand: Apple
+          model: pro max
+          ram_memory: 128
+          rem_memory: 128
+        - identifier: 002
+          brand: Samsung
+          model: ultra
+          ram_memory: 128
+          rem_memory: 128
+  schemas:
+    PhoneModel:
+      allOf:
+        - type: object
+          properties:
+            identifier:
+              type: string
+              example: 001
+            brand:
+              type: string
+              example: Apple
+            model:
+              type: string
+              example: pro max
+        - $ref: "#/components/schemas/CharacModel"
+    CharacModel:
+      type: object
+      properties:
+        ram_memory:
+          type: integer
+          example: 128
+        rom_memory:
+          type: integer
+          example: 256
+  parameters:
+    Identifier:
+      name: id
+      in: path
+      type: string
+      example: 001 
+
